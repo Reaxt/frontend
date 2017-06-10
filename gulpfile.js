@@ -17,15 +17,18 @@ gulp.task('sass:watch', function() {
 });
 
 gulp.task('js', function() {
-	return gulp.src('assets/js/*.js')
+	gulp.src(['assets/js/*.js', '!assets/js/vue.js'])
 		.pipe(babel({
 			presets: ['es2015']
 		}))
 		.pipe(gulp.dest('build/js'));
+
+	return gulp.src('assets/js/vue.js')
+		.pipe(gulp.dest('build/js/'));
 });
 
 gulp.task('js:watch', function() {
-	gulp.watch('./assets/js/**/*.js', ['js']);
+	gulp.watch('./assets/js/*.js', ['js']);
 });
 
 gulp.task('default', ['sass', 'js', 'sass:watch', 'js:watch']);
